@@ -105,7 +105,6 @@
             <tr>
               {{ th('Name', 'text', 'text', 3) }}
               {{ th('Mimetype', 'type') }}
-              {{ th('Modified', 'modified', 'numeric') }}
               {{ th('Size', 'size', 'numeric') }}
             </tr>
         </thead>
@@ -121,7 +120,6 @@
                     {% endif %}
                     <td>{{ draw_widgets(f, 'entry-actions') }}</td>
                     <td>{{ f.type or '' }}</td>
-                    <td>{{ f.modified or '' }}</td>
                     <td>{{ f.size or '' }}</td>
                 </tr>
             {% endfor %}

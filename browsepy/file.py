@@ -183,20 +183,6 @@ class Node(object):
         return ancestors
 
     @property
-    def modified(self):
-        '''
-        Get human-readable last modification date-time.
-
-        :returns: iso9008-like date-time string (without timezone)
-        :rtype: str
-        '''
-        try:
-            dt = datetime.datetime.fromtimestamp(self.stats.st_mtime)
-            return dt.strftime('%Y.%m.%d %H:%M:%S')
-        except OSError:
-            return None
-
-    @property
     def urlpath(self):
         '''
         Get the url substring corresponding to this node for those endpoints
