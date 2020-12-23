@@ -201,6 +201,10 @@ table.browser tr:last-child {
   border-bottom: 1px solid #222;
 }
 
+table.browser th:nth-child(2) {
+  min-width: 8rem;
+}
+
 table.browser th:last-child {
   min-width: 15rem;
 }

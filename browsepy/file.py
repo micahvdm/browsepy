@@ -64,6 +64,19 @@ class Node(object):
     can_download = False
     is_root = False
 
+    audiofile_exts = (
+        # through libsndfile
+        "aif", "aifc", "aiff", "au", "bwf", "flac", "htk", "iff", "mat4",
+        "mat5", "oga", "ogg", "paf", "pvf", "pvf5", "sd2", "sf", "snd", "svx",
+        "vcc", "w64", "wav", "xi",
+        # extra through ffmpeg
+        "3g2", "3gp", "aac", "ac3", "amr", "ape", "mp2", "mp3", "mpc", "wma",
+    )
+    hq_audiofile_exts = (
+        "aif", "aifc", "aiff", "flac", "w64", "wav",
+    )
+    midifile_exts = ("mid", "midi")
+
     @cached_property
     def is_excluded(self):
         '''
@@ -206,12 +219,72 @@ class Node(object):
     @property
     def type(self):
         '''
-        Get the file type (or mimetype without the encoding part as fallback).
+        Get the file type in a way that matches mod-ui supported types.
 
-        :returns: file type or mimetype as fallback
+        :returns: file type
         :rtype: str
         '''
-        return self.mimetype.split(";", 1)[0]
+        extension = self.path.lower().rsplit(".",1)
+        if len(extension) != 2:
+            return "Unknown"
+        extension = extension[1]
+
+        # returned text depends on top-parent folder
+        parent = tryparent = self.parent
+        while tryparent.parent:
+            parent = tryparent
+            tryparent = tryparent.parent
+
+        parentdir = parent.path.rsplit("/",1)[1]
+        print("parent is", parentdir)
+
+        # Audio Files
+        if parentdir in ("Audio Loops",
+                         "Audio Recordings",
+                         "Audio Samples",
+                         "Audio Tracks",):
+            if extension in self.audiofile_exts:
+                return "Audio File"
+
+        # MIDI Files
+        if parentdir in ("MIDI Clips", "MIDI Songs",):
+            if extension in self.midifile_exts:
+                return "MIDI File"
+
+        # IR Files
+        if parentdir in ("Impulse Responses", "Speaker Cabinets",):
+            if extension in self.hq_audiofile_exts:
+                return "IR File"
+
+        # Instruments
+        if parentdir in ("Hydrogen Drumkits",
+                         "SF2 Instruments",
+                         "SFZ Instruments",):
+            if extension == "h2drumkit":
+                return "Hydrogen Drumkit"
+            if extension == "sf2":
+                return "SF2 Instrument"
+            if extension == "sf3":
+                return "SF3 Instrument"
+            if extension == "sfz":
+                return "SFZ Instrument"
+
+        # If this is reached, a file is placed in a directory not fit for it
+        # We can still return a recognizable type, but add "unused" suffix
+        if extension in self.audiofile_exts:
+            return "Audio File (Unlisted)"
+        if extension in self.midifile_exts:
+            return "MIDI File (Unlisted)"
+        if extension == "h2drumkit":
+            return "Hydrogen Drumkit (Unlisted)"
+        if extension == "sf2":
+            return "SF2 Instrument (Unlisted)"
+        if extension == "sf3":
+            return "SF3 Instrument (Unlisted)"
+        if extension == "sfz":
+            return "SFZ Instrument (Unlisted)"
+
+        return "Unknown"
 
     @property
     def category(self):
