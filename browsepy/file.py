@@ -233,7 +233,7 @@ class Node(object):
             * text
             * video
         '''
-        return self.type.split('/', 1)[0]
+        return self.mimetype.split('/', 1)[0]
 
     def __init__(self, path=None, app=None, **defaults):
         '''
@@ -521,28 +521,6 @@ class Directory(Node):
                     )
                 )
         return widgets + super(Directory, self).widgets
-
-    @property
-    def category(self):
-        '''
-        Get mimetype category (first portion of mimetype before the slash).
-
-        :returns: mimetype category
-        :rtype: str
-
-        As of 2016-11-03's revision of RFC2046 it could be one of the
-        following:
-            * application
-            * audio
-            * example
-            * image
-            * message
-            * model
-            * multipart
-            * text
-            * video
-        '''
-        return "inode"
 
     @cached_property
     def type(self):
