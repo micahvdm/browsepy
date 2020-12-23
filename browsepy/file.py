@@ -346,7 +346,7 @@ class File(Node):
                 'entry-link',
                 'link',
                 file=self,
-                endpoint='open'
+                endpoint='download_file'
                 )
             ]
         if self.can_download:
@@ -589,7 +589,7 @@ class Directory(Node):
             files = tuple(self._listdir())
 
         numfiles = len(files)
-        numfiles_str = "%d File%c/Folder%c" % (numfiles,
+        numfiles_str = "%d File%s/Folder%s" % (numfiles,
                                                's' if numfiles != 1 else '',
                                                's' if numfiles != 1 else '')
 
