@@ -23,16 +23,18 @@
       type="text/css"
       href="{{ widget.href or url_for(widget.endpoint, filename=widget.filename) }}"/>
   {%- elif widget.type == 'upload' -%}
-    <form class="upload autosubmit{% if widget.css %} {{ widget.css }}{% endif %}"
-          method="post"
-          action="{{ widget.action or url_for(widget.endpoint, path=file.urlpath) }}"
-          enctype="multipart/form-data">
-      <label>
-        <h2>{{ widget.text or 'Upload' }}</h2>
-        <input type="file" name="file[]" multiple=""/>
-      </label>
-      <input type="submit"/>
-    </form>
+    {%- if file.parent -%}
+      <form class="upload autosubmit{% if widget.css %} {{ widget.css }}{% endif %}"
+            method="post"
+            action="{{ widget.action or url_for(widget.endpoint, path=file.urlpath) }}"
+            enctype="multipart/form-data">
+        <label>
+          <h2>{{ widget.text or 'Upload' }}</h2>
+          <input type="file" name="file[]" multiple=""/>
+        </label>
+        <input type="submit"/>
+      </form>
+    {%- endif -%}
   {%- elif widget.type == 'html' -%}
     {{ widget.html|safe }}
   {%- endif -%}
@@ -81,11 +83,11 @@
       <li>
         <a href="{{ url_for('browse', path=parent.urlpath) }}"
            {% if parent.is_root %}class="root"{% endif %}
-           >{{ parent.name }}</a>
+           >{{ parent.name if parent.parent else 'User-Files' }}</a>
       </li>
     {% endfor %}
     {% if file.name %}
-      <li><span>{{ file.name }}</span></li>
+      <li><span>{{ file.name if file.parent else 'User-Files' }}</span></li>
     {% endif %}
   </ol>
 </h1>
@@ -97,35 +99,72 @@
 {% endblock %}
 
 {% block content_table %}
-{% if file.is_empty %}
-    <p>No files in directory</p>
-{% else %}
-    <table class="browser">
-        <thead>
+
+{% if file.parent %}
+<table class="browser">
+    <thead>
+        <tr>
+          {{ th('Name', 'text', 'text', 3) }}
+          {{ th('Filetype', 'type') }}
+          {{ th('Size', 'size', 'numeric') }}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="icon inode"></td>
+            <td class="parent"><a href="{{ url_for('browse', path=file.parent.urlpath) }}">..</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% for f in file.listdir(sortkey=sort_fnc, reverse=sort_reverse) %}
             <tr>
-              {{ th('Name', 'text', 'text', 3) }}
-              {{ th('Mimetype', 'type') }}
-              {{ th('Size', 'size', 'numeric') }}
+                {% if f.link %}
+                  <td class="icon {{ f.link.icon }}"></td>
+                  <td>{{ draw_widget(f, f.link) }}</td>
+                {% else %}
+                  <td></td>
+                  <td></td>
+                {% endif %}
+                <td>{{ draw_widgets(f, 'entry-actions') }}</td>
+                <td>{{ f.type or '' }}</td>
+                <td>{{ f.size or '' }}</td>
             </tr>
-        </thead>
-        <tbody>
-            {% for f in file.listdir(sortkey=sort_fnc, reverse=sort_reverse) %}
-                <tr>
-                    {% if f.link %}
-                      <td class="icon {{ f.link.icon }}"></td>
-                      <td>{{ draw_widget(f, f.link) }}</td>
-                    {% else %}
-                      <td></td>
-                      <td></td>
-                    {% endif %}
-                    <td>{{ draw_widgets(f, 'entry-actions') }}</td>
-                    <td>{{ f.type or '' }}</td>
-                    <td>{{ f.size or '' }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+{% set roordirgroups = ['Audio Files','MIDI Files','IR Files','Instruments'] %}
+{% set rootdirs = {
+    'Audio Files': ['Audio Loops','Audio Recordings','Audio Samples','Audio Tracks'],
+    'MIDI Files': ['MIDI Clips','MIDI Songs'],
+    'IR Files': ['Impulse Responses','Speaker Cabinets'],
+    'Instruments': ['Hydrogen Drumkits','SF2 Instruments','SFZ Instruments'],
+} %}
+{% for roordirgroup in roordirgroups %}
+<table class="browser rootdirgroup">
+    <thead>
+        <tr>
+            <th colspan="3">{{ roordirgroup }}</th>
+            <th>Size</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dirname in rootdirs[roordirgroup] %}
+            {% if file.contains(dirname) %}
+            <tr>
+                <td class="icon inode"></td>
+                <td><a href="{{ url_for('browse', path=dirname) }}">{{ dirname }}</a></td>
+                <td></td>
+                <td>{{ file.childsize(dirname) }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
 {% endif %}
+
 {% endblock %}
 
 {% block content_footer %}

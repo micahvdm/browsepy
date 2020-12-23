@@ -206,9 +206,9 @@ class Node(object):
     @property
     def type(self):
         '''
-        Get the mime portion of node's mimetype (without the encoding part).
+        Get the file type (or mimetype without the encoding part as fallback).
 
-        :returns: mimetype
+        :returns: file type or mimetype as fallback
         :rtype: str
         '''
         return self.mimetype.split(";", 1)[0]
@@ -452,7 +452,6 @@ class Directory(Node):
     _listdir_cache = None
     mimetype = 'inode/directory'
     is_file = False
-    size = None
     encoding = 'default'
     generic = False
 
@@ -523,6 +522,38 @@ class Directory(Node):
                 )
         return widgets + super(Directory, self).widgets
 
+    @property
+    def category(self):
+        '''
+        Get mimetype category (first portion of mimetype before the slash).
+
+        :returns: mimetype category
+        :rtype: str
+
+        As of 2016-11-03's revision of RFC2046 it could be one of the
+        following:
+            * application
+            * audio
+            * example
+            * image
+            * message
+            * model
+            * multipart
+            * text
+            * video
+        '''
+        return "inode"
+
+    @cached_property
+    def type(self):
+        '''
+        Get the file type (or mimetype without the encoding part as fallback).
+
+        :returns: file type or mimetype as fallback
+        :rtype: str
+        '''
+        return "Directory"
+
     @cached_property
     def is_directory(self):
         '''
@@ -542,6 +573,45 @@ class Directory(Node):
         :rtype: bool
         '''
         return check_path(os.path.dirname(self.path), self.path)
+
+    @property
+    def size(self):
+        '''
+        Get human-readable node size in bytes.
+        If directory, this will corresponds with own inode size.
+
+        :returns: fuzzy size with unit
+        :rtype: str
+        '''
+        if self._listdir_cache is not None:
+            files = self._listdir_cache
+        else:
+            files = tuple(self._listdir())
+
+        numfiles = len(files)
+        numfiles_str = "%d File%c/Folder%c" % (numfiles,
+                                               's' if numfiles != 1 else '',
+                                               's' if numfiles != 1 else '')
+
+        if numfiles == 0:
+            return numfiles_str
+
+        totalsize = sum(file.stats.st_size for file in files)
+
+        try:
+            size, unit = fmt_size(
+                totalsize,
+                self.app.config['use_binary_multiples'] if self.app else False
+                )
+        except OSError:
+            return numfiles_str
+
+        if unit == binary_units[0]:
+            totalsize_str = "%d %s" % (size, unit)
+        else:
+            totalsize_str = "%.2f %s" % (size, unit)
+
+        return numfiles_str + ", " + totalsize_str
 
     @cached_property
     def can_download(self):
@@ -590,6 +660,11 @@ class Directory(Node):
         for entry in self._listdir():
             return False
         return True
+
+    def childsize(self, filename):
+        return self.directory_class(
+            os.path.join(self.app.config['directory_base'], filename),
+            self.app).size
 
     def remove(self):
         '''
