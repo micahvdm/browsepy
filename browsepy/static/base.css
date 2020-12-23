@@ -29,7 +29,7 @@ html {
 body {
   color: #ccc;
   font-family: sans;
-  font-size: 1em;
+  font-size: 14px;
   padding: 0;
   margin: 0;
   min-height: 100%;
@@ -63,13 +63,13 @@ ul.main-menu {
 }
 
 ul.main-menu > li {
-  font-size: 1.25em;
+  font-size: 1.25rem;
 }
 
 form.upload {
   border: 1px solid #333;
   display: inline-block;
-  margin: 0 0 1em;
+  margin: 0 0 1rem;
   padding: 0;
 }
 
@@ -80,7 +80,7 @@ form.upload:after {
 
 form.upload h2 {
   display: inline-block;
-  padding: 1em 0;
+  padding: 1rem 0;
   margin: 0;
 }
 
@@ -88,7 +88,7 @@ form.upload label {
   display: inline-block;
   background: #333;
   color: white;
-  padding: 0 1.5em;
+  padding: 0 1.5rem;
 }
 
 form.upload label input {
@@ -96,7 +96,7 @@ form.upload label input {
 }
 
 form.upload input {
-  margin: 0.5em 1em;
+  margin: 0.5rem 1rem;
 }
 
 form.remove {
@@ -104,7 +104,7 @@ form.remove {
 }
 
 form.remove input[type=submit] {
-  min-width: 10em;
+  min-width: 10rem;
 }
 
 html.autosubmit-support form.autosubmit{
@@ -118,7 +118,7 @@ html.autosubmit-support form.autosubmit input{
 }
 
 html.autosubmit-support form.autosubmit h2{
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: normal;
   padding: 0;
 }
@@ -130,30 +130,34 @@ table.browser {
   overflow-x: auto;
 }
 
-table.browser tr:nth-child(2n) {
-  background-color: #222;
-}
-
 table.browser th,
 table.browser td {
   margin: 0;
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
-  padding: 5px;
+  padding: 3px 5px;
 }
 
 table.browser th {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #1c1c1c;
+  color: #fff;
+}
+
+table.browser th,
+table.browser tr:last-child {
+  border-bottom: 1px solid #222;
 }
 
 table.browser th:last-child {
-  min-width: 15em;
+  min-width: 15rem;
+}
+
+table.browser tr:nth-child(2n) {
+  background-color: #222;
 }
 
 table.browser td:first-child {
-  min-width: 1em;
+  min-width: 1rem;
 }
 
 table.browser td:nth-child(2) {
@@ -171,7 +175,7 @@ table.browser td:nth-child(3) {
 }
 
 table.browser.rootdirgroup {
-  margin-top: 2em;
+  margin-top: 1rem;
 }
 
 table.browser.rootdirgroup:first-of-type {
@@ -179,18 +183,17 @@ table.browser.rootdirgroup:first-of-type {
 }
 
 table.browser.rootdirgroup th:first-child {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   padding-left: 10px;
   text-align: left;
 }
 
 h1 {
-  line-height: 1.15em;
-  font-size: 3em;
+  font-size: 2rem;
   white-space: normal;
   word-wrap: normal;
   margin: 0;
-  padding: 0 0 0.3em;
+  padding: 0 0 0.3rem;
   display: block;
   color: #fff;
   /*
@@ -208,7 +211,6 @@ ol.path li {
 
 ol.path li *:before {
   content: ' ';
-  font-size: 0.5em;
 }
 
 ol.path li *:after{
@@ -219,7 +221,6 @@ ol.path li:first-child *:before,
 ol.path li:last-child *:after,
 ol.path li *.root:after {
   content: '';
-  font-size: 1em;
 }
 
 ul.navbar,
@@ -229,9 +230,9 @@ ul.footer {
   right: 0;
   width: auto;
   margin: 0;
-  padding: 0 1em;
+  padding: 0 1rem;
   display: block;
-  line-height: 2.5em;
+  line-height: 2.5rem;
   background: #333;
   color: white;
 }
@@ -293,13 +294,13 @@ ul.footer > li {
 
 a.sorting {
   display: block;
-  padding: 0 1.4em 0 0;
+  padding: 0 1.4rem 0 0;
 }
 
 a.sorting:after,
 a.sorting:before {
   float: right;
-  margin: 0.2em -1.3em -0.2em;
+  margin: 0.2rem -1.3rem -0.2rem;
 }
 
 a.sorting:hover:after,
@@ -338,9 +339,9 @@ html.autosubmit-support form.autosubmit label {
   background: #333;
   display: inline-block;
   vertical-align: middle;
-  line-height: 1.5em;
+  line-height: 1.5rem;
   text-align: center;
-  border-radius: 0.25em;
+  border-radius: 0.25rem;
   border: 1px solid gray;
   box-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
   /*
@@ -365,8 +366,8 @@ html.autosubmit-support form.autosubmit{
 }
 
 a.button {
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 a.button.text{
@@ -376,7 +377,7 @@ a.button.text{
 
 a.button.text,
 html.autosubmit-support form.autosubmit label{
-  padding: 0.25em 0.5em;
+  padding: 0.25rem 0.5rem;
 }
 
 a.button.download:after {
@@ -395,15 +396,15 @@ strong[data-prefix] {
 strong[data-prefix]:after {
   display: inline-block;
   position: relative;
-  top: -0.5em;
-  margin: 0 0.25em;
-  width: 1.2em;
-  height: 1.2em;
-  font-size: 0.75em;
+  top: -0.5rem;
+  margin: 0 0.25rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 0.75rem;
   text-align: center;
-  line-height: 1.2em;
+  line-height: 1.2rem;
   content: 'i';
-  border-radius: 0.5em;
+  border-radius: 0.5rem;
   color: white;
   background-color: darkgray;
 }
