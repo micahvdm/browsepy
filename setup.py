@@ -94,6 +94,7 @@ setup(
         'browsepy': [
             'templates/*',
             'static/fonts/*',
+            'static/fonts/cooper/*',
             'static/*.*',  # do not capture directories
         ],
         'browsepy.plugin.player': [
