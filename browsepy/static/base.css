@@ -390,6 +390,7 @@ a.sorting.numeric.desc.active:after {
 }
 
 a.button,
+input.button,
 html.autosubmit-support form.autosubmit label {
   color: white;
   background: #333;
@@ -406,19 +407,26 @@ html.autosubmit-support form.autosubmit label {
 }
 
 a.button:active,
+input.button:active,
 html.autosubmit-support form.autosubmit label:active{
   border: 1px solid black;
 }
 
 a.button:hover,
+input.button:hover,
 html.autosubmit-support form.autosubmit label:hover {
   color: white;
   background: black;
 }
 
 a.button,
-html.autosubmit-support form.autosubmit{
+input.button,
+html.autosubmit-support form.autosubmit {
   margin-left: 3px;
+}
+
+input.button {
+  margin-right: 3px;
 }
 
 a.button {
@@ -426,7 +434,7 @@ a.button {
   height: 1.5rem;
 }
 
-a.button.text{
+a.button.text {
   width: auto;
   height: auto;
 }
@@ -471,4 +479,8 @@ strong[data-prefix]:hover:after {
 
 strong[data-prefix]:hover:before {
   content: attr(data-prefix);
+}
+
+#remove-dialog {
+  text-align: center;
 }
