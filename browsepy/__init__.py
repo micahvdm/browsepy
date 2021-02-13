@@ -276,7 +276,8 @@ def subdir(path):
     if not subdir or subdir[0] == '.' or '/' in subdir:
         return redirect(url_for(".browse", path=directory.urlpath))
 
-    if directory.create_subdir(subdir):
+    subdir = directory.create_subdir(subdir)
+    if subdir:
         directory = Node.from_urlpath(path + '/' + subdir)
 
     return redirect(url_for(".browse", path=directory.urlpath))

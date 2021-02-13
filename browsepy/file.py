@@ -731,9 +731,9 @@ class Directory(Node):
             os.mkdir(os.path.join(self.path, subdir))
         except OSError as e:
             logger.exception(e)
-            return False
+            return None
         else:
-            return True
+            return subdir
 
     def remove(self):
         '''

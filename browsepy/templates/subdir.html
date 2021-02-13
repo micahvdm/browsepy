@@ -5,7 +5,7 @@
     <h1>Create directory</h1>
     <p>Please provide a name for the directory to create.</p>
     <form method="post">
-      <input type="text" name="subdir" minlength="1" spellcheck="false" value="" />
+      <input type="text" name="subdir" minlength="1" spellcheck="false" autofocus id="subdir-name" value="" />
       <br>
       <input type="submit" class="button" value="Create" />
     </form>
@@ -13,4 +13,7 @@
       <input type="submit" class="button cancel" alt="Go back" value="Cancel" />
     </form>
   </div>
+  <script>
+    document.getElementById("subdir-name").focus();
+  </script>
 {% endblock %}
