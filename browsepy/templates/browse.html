@@ -15,7 +15,7 @@
        >{{ widget.text or '' }}</a>
   {%- elif widget.type == 'script' -%}
     <script
-      src="{{ widget.src or url_for(widget.endpoint, filename=widget.filename) }}"
+      src="{{ widget.src or url_for(widget.endpoint, filename=widget.filename) }}?v=4"
       ></script>
   {%- elif widget.type == 'stylesheet' -%}
     <link
