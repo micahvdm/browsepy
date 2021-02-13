@@ -253,6 +253,35 @@ def remove(path):
     return redirect(url_for(".browse", path=file.parent.urlpath))
 
 
+@app.route("/subdir/<path:path>", methods=("GET", "POST"))
+def subdir(path):
+    try:
+        directory = Node.from_urlpath(path)
+    except OutsideDirectoryBase:
+        return NotFound()
+
+    if (
+      not directory.is_directory or
+      not directory.can_upload or
+      directory.is_excluded
+      ):
+        return NotFound()
+
+    if request.method == 'GET':
+        return render_template('subdir.html', directory=directory)
+
+    subdir = request.values['subdir']
+
+    # some safety checks
+    if not subdir or subdir[0] == '.' or '/' in subdir:
+        return redirect(url_for(".browse", path=directory.urlpath))
+
+    if directory.create_subdir(subdir):
+        directory = Node.from_urlpath(path + '/' + subdir)
+
+    return redirect(url_for(".browse", path=directory.urlpath))
+
+
 @app.route("/upload", defaults={'path': ''}, methods=("POST",))
 @app.route("/upload/<path:path>", methods=("POST",))
 def upload(path):

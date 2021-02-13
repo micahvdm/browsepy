@@ -3,11 +3,11 @@
 {% block content %}
   <div id="remove-dialog">
     <h1>Remove</h1>
-    <p>Do you really want to remove <strong>{{ file.name }}</strong>?</p>
-    <form method="post" class="remove">
+    <p>Do you really want to remove <strong>{{ file.name }}</strong> ?</p>
+    <form method="post">
       <input type="submit" class="button" value="Yes" />
     </form>
-    <form method="get" class="remove" action="{{ url_for('browse', path=file.parent.urlpath) }}">
+    <form method="get" action="{{ url_for('browse', path=file.parent.urlpath) }}">
       <input type="submit" class="button cancel" alt="Go back" value="Cancel" />
     </form>
   </div>

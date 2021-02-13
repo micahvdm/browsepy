@@ -35,6 +35,16 @@
         <input type="submit"/>
       </form>
     {%- endif -%}
+  {%- elif widget.type == 'subdir' -%}
+    {%- if file.parent -%}
+      <form class="subdir autosubmit">
+        <label>
+          <a href="{{ url_for(widget.endpoint, path=file.urlpath) }}">
+            <h2>Create directory</h2>
+          </a>
+        </label>
+      </form>
+    {%- endif -%}
   {%- elif widget.type == 'html' -%}
     {{ widget.html|safe }}
   {%- endif -%}

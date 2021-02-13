@@ -1,7 +1,7 @@
 (function() {
   if (document.querySelectorAll) {
     var
-      forms = document.querySelectorAll('html.autosubmit-support form.autosubmit'),
+      forms = document.querySelectorAll('html.autosubmit-support form.autosubmit.upload'),
       i = forms.length;
     while (i--) {
       var files = forms[i].querySelectorAll('input[type=file]');

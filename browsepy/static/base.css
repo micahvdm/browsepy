@@ -119,45 +119,43 @@ ul.main-menu > li {
   font-size: 1.25rem;
 }
 
-form.upload {
+form.upload,
+form.subdir {
   border: 1px solid #333;
   display: inline-block;
-  margin: 0 0 1rem;
+  margin: 0;
   padding: 0;
 }
 
-form.upload:after {
+form.upload:after,
+form.subdir:after  {
   content: '';
   clear: both;
 }
 
-form.upload h2 {
+form.upload h2,
+form.subdir h2 {
   display: inline-block;
   padding: 1rem 0;
   margin: 0;
 }
 
-form.upload label {
+form.upload label,
+form.subdir label {
   display: inline-block;
   background: #333;
   color: white;
   padding: 0 1.5rem;
 }
 
-form.upload label input {
+form.upload label input,
+form.subdir label input {
   margin-right: 0;
 }
 
-form.upload input {
+form.upload input,
+form.subdir input {
   margin: 0.5rem 1rem;
-}
-
-form.remove {
-  display: inline-block;
-}
-
-form.remove input[type=submit] {
-  min-width: 10rem;
 }
 
 html.autosubmit-support form.autosubmit{
@@ -481,6 +479,17 @@ strong[data-prefix]:hover:before {
   content: attr(data-prefix);
 }
 
-#remove-dialog {
+#remove-dialog,
+#subdir-dialog {
   text-align: center;
+}
+
+#remove-dialog > form {
+  display: inline-block;
+}
+
+#remove-dialog > form input[type=submit],
+#subdir-dialog > form input[type=submit] {
+  margin: 5px;
+  min-width: 10rem;
 }

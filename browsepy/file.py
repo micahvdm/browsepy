@@ -236,7 +236,6 @@ class Node(object):
             tryparent = tryparent.parent
 
         parentdir = parent.path.rsplit("/",1)[1]
-        print("parent is", parentdir)
 
         # Audio Files
         if parentdir in ("Audio Loops",
@@ -270,7 +269,7 @@ class Node(object):
                 return "SFZ Instrument"
 
         # If this is reached, a file is placed in a directory not fit for it
-        # We can still return a recognizable type, but add "unused" suffix
+        # We can still return a recognizable type, but add "Unlisted" suffix
         if extension in self.audiofile_exts:
             return "Audio File (Unlisted)"
         if extension in self.midifile_exts:
@@ -581,7 +580,13 @@ class Directory(Node):
                     file=self,
                     text='Upload',
                     endpoint='upload'
-                    )
+                ),
+                self.plugin_manager.create_widget(
+                    'header',
+                    'subdir',
+                    file=self,
+                    endpoint='subdir'
+                )
                 ))
         if self.can_download:
             widgets.append(
@@ -716,6 +721,19 @@ class Directory(Node):
         return self.directory_class(
             os.path.join(self.app.config['directory_base'], filename),
             self.app).size
+
+    def create_subdir(self, subdir):
+        '''
+        Create sub-directory.
+        '''
+        subdir = self.choose_filename(subdir)
+        try:
+            os.mkdir(os.path.join(self.path, subdir))
+        except OSError as e:
+            logger.exception(e)
+            return False
+        else:
+            return True
 
     def remove(self):
         '''

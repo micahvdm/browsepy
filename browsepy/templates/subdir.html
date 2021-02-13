@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="subdir-dialog">
+    <h1>Create directory</h1>
+    <p>Please provide a name for the directory to create.</p>
+    <form method="post">
+      <input type="text" name="subdir" minlength="1" spellcheck="false" value="" />
+      <br>
+      <input type="submit" class="button" value="Create" />
+    </form>
+    <form method="get" action="{{ url_for('browse', path=directory.urlpath) }}">
+      <input type="submit" class="button cancel" alt="Go back" value="Cancel" />
+    </form>
+  </div>
+{% endblock %}

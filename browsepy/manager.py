@@ -215,6 +215,10 @@ class WidgetPluginManager(RegistrablePluginManager):
             'Upload',
             ('place', 'type', 'css', 'text', 'endpoint', 'action'),
             {'type': 'upload'}),
+        'subdir': defaultsnamedtuple(
+            'CreateDirectory',
+            ('place', 'type', 'endpoint', 'action'),
+            {'type': 'subdir'}),
         'stylesheet': defaultsnamedtuple(
             'Stylesheet',
             ('place', 'type', 'endpoint', 'filename', 'href'),
