@@ -144,11 +144,11 @@
     </tbody>
 </table>
 {% else %}
-{% set roordirgroups = ['Audio Files','MIDI Files','IR Files','Instruments'] %}
+{% set roordirgroups = ['Audio Files','MIDI Files','Impulse Response Files','Instruments'] %}
 {% set rootdirs = {
     'Audio Files': ['Audio Loops','Audio Recordings','Audio Samples','Audio Tracks'],
     'MIDI Files': ['MIDI Clips','MIDI Songs'],
-    'IR Files': ['Impulse Responses','Speaker Cabinets'],
+    'Impulse Response Files': ['Reverb IRs','Speaker Cabinets IRs'],
     'Instruments': ['Hydrogen Drumkits','SF2 Instruments','SFZ Instruments'],
 } %}
 {% for roordirgroup in roordirgroups %}

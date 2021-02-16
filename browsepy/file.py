@@ -251,9 +251,9 @@ class Node(object):
                 return "MIDI File"
 
         # IR Files
-        if parentdir in ("Impulse Responses", "Speaker Cabinets",):
+        if parentdir in ("Reverb IRs", "Speaker Cabinets IRs",):
             if extension in self.hq_audiofile_exts:
-                return "IR File"
+                return "Impulse Response Files"
 
         # Instruments
         if parentdir in ("Hydrogen Drumkits",
