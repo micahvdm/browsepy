@@ -479,6 +479,21 @@ strong[data-prefix]:hover:before {
   content: attr(data-prefix);
 }
 
+.disk-space {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 250px;
+    text-align: center;
+    font-size: 17px;
+}
+.disk-space > span {
+    display: block;
+}
+.disk-space > span:first-child {
+    font-weight: bold;
+}
+
 #remove-dialog,
 #subdir-dialog {
   text-align: center;

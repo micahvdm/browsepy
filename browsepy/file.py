@@ -307,6 +307,25 @@ class Node(object):
         '''
         return self.mimetype.split('/', 1)[0]
 
+    @property
+    def used_disk_space(self):
+        stat = os.statvfs(self.app.config['directory_base'])
+        size = stat.f_blocks * stat.f_frsize
+        used = size - (stat.f_bfree * stat.f_frsize)
+
+        try:
+            rused, rsize, unit = fmt_size2(
+                used,
+                size,
+                self.app.config['use_binary_multiples'] if self.app else False
+                )
+        except OSError:
+            return "Error/Unknown"
+
+        if unit == binary_units[0]:
+            return "%d / %d %s" % (rused, rsize, unit)
+        return "%.2f / %.2f %s" % (rused, rsize, unit)
+
     def __init__(self, path=None, app=None, **defaults):
         '''
         :param path: local path
@@ -870,6 +889,33 @@ def fmt_size(size, binary=True):
             return (size, fmt)
         size /= fmt_divider
     return size, fmt_sizes[-1]
+
+
+def fmt_size2(size1, size2, binary=True):
+    '''
+    Get 2 sizes and unit, with size2 being the one that dictates the unit.
+
+    :param size1: size in bytes
+    :type size1: int
+    :param size2: size in bytes
+    :type size2: int
+    :param binary: whether use binary or standard units, defaults to True
+    :type binary: bool
+    :return: size1, size2 and unit
+    :rtype: tuple of int and unit as str
+    '''
+    if binary:
+        fmt_sizes = binary_units
+        fmt_divider = 1024.
+    else:
+        fmt_sizes = standard_units
+        fmt_divider = 1000.
+    for fmt in fmt_sizes[:-1]:
+        if size2 < 1000:
+            return (size1, size2, fmt)
+        size1 /= fmt_divider
+        size2 /= fmt_divider
+    return size1, size2, fmt_sizes[-1]
 
 
 def relativize_path(path, base, os_sep=os.sep):

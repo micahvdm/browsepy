@@ -101,6 +101,14 @@
     {% endif %}
   </ol>
 </h1>
+<div class="disk-space">
+  <span>
+    Used disk space:
+  </span>
+  <span>
+    {{ file.used_disk_space }}
+  </span>
+</div>
 {% endblock %}
 
 {% block content %}
