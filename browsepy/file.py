@@ -67,8 +67,8 @@ class Node(object):
     audiofile_exts = (
         # through libsndfile
         "aif", "aifc", "aiff", "au", "bwf", "flac", "htk", "iff", "mat4",
-        "mat5", "oga", "ogg", "paf", "pvf", "pvf5", "sd2", "sf", "snd", "svx",
-        "vcc", "w64", "wav", "xi",
+        "mat5", "oga", "ogg", "opus", "paf", "pvf", "pvf5", "sd2", "sf",
+        "snd", "svx", "vcc", "w64", "wav", "xi",
         # extra through ffmpeg
         "3g2", "3gp", "aac", "ac3", "amr", "ape", "mp2", "mp3", "mpc", "wma",
     )
