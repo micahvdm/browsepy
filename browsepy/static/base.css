@@ -86,6 +86,7 @@ body {
   padding: 0;
   margin: 0;
   min-height: 100%;
+  position: relative;
 }
 
 a,
@@ -507,4 +508,64 @@ strong[data-prefix]:hover:before {
 #subdir-dialog > form input[type=submit] {
   margin: 5px;
   min-width: 10rem;
+}
+
+@media screen and (min-width: 768px)
+{
+    html {
+        width: 90vw;
+    }
+    body {
+        left: 5vw;
+    }
+}
+
+@media screen and (min-width: 900px)
+{
+    html {
+        width: 80vw;
+    }
+    body {
+        left: 10vw;
+    }
+}
+
+@media screen and (min-width: 1100px)
+{
+    html {
+        width: 70vw;
+    }
+    body {
+        left: 15vw;
+    }
+}
+
+@media screen and (min-width: 1400px)
+{
+    html {
+        width: 65vw;
+    }
+    body {
+        left: 17.5vw;
+    }
+}
+
+@media screen and (min-width: 1600px)
+{
+    html {
+        width: 60vw;
+    }
+    body {
+        left: 20vw;
+    }
+}
+
+@media screen and (min-width: 1900px)
+{
+    html {
+        width: 50vw;
+    }
+    body {
+        left: 25vw;
+    }
 }
