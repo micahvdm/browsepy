@@ -267,6 +267,11 @@ class Node(object):
                 return "SF3 Instrument"
             if extension == "sfz":
                 return "SFZ Instrument"
+            
+        # Amplifier Profiles
+        if parentdir in ("Amplifier Profiles"):
+            if extension == "tapf":
+                return "Amplifier Profile"
 
         # If this is reached, a file is placed in a directory not fit for it
         # We can still return a recognizable type, but add "Unlisted" suffix
