@@ -13,12 +13,7 @@ from werkzeug.utils import cached_property
 from . import mimetype
 from . import compat
 from .compat import deprecated, usedoc
-
-try:
-     from collections import Mapping
- except ImportError:
-     from collections.abc import Mapping
-        
+    
 
 def defaultsnamedtuple(name, fields, defaults=None):
     '''
@@ -32,7 +27,7 @@ def defaultsnamedtuple(name, fields, defaults=None):
     '''
     nt = collections.namedtuple(name, fields)
     nt.__new__.__defaults__ = (None,) * len(nt._fields)
-    if isinstance(defaults, Mapping):
+    if isinstance(defaults, collections.Mapping):
         nt.__new__.__defaults__ = tuple(nt(**defaults))
     elif defaults:
         nt.__new__.__defaults__ = tuple(nt(*defaults))
