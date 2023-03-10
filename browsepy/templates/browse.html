@@ -152,13 +152,13 @@
     </tbody>
 </table>
 {% else %}
-{% set roordirgroups = ['Audio Files','MIDI Files','Impulse Response Files','Instruments','Amplifier Profiles'] %}
+{% set roordirgroups = ['Audio Files','MIDI Files','Impulse Response Files','Instruments','Plugin Resources'] %}
 {% set rootdirs = {
     'Audio Files': ['Audio Loops','Audio Recordings','Audio Samples','Audio Tracks'],
     'MIDI Files': ['MIDI Clips','MIDI Songs'],
     'Impulse Response Files': ['Reverb IRs','Speaker Cabinets IRs'],
     'Instruments': ['Hydrogen Drumkits','SF2 Instruments','SFZ Instruments'],
-    'Amplifier Profiles': ['Amplifier Profiles'],
+    'Plugin Resources': ['Aida DSP Models','Amplifier Profiles'],
 } %}
 {% for roordirgroup in roordirgroups %}
 <table class="browser rootdirgroup">
