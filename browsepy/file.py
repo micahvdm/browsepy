@@ -267,6 +267,10 @@ class Node(object):
                 return "SF3 Instrument"
             if extension == "sfz":
                 return "SFZ Instrument"
+                
+        # Plugin Resources
+         if parentdir == "Aida DSP Models" and extension == "json":
+             return "Aida DSP Model"
             
         # Amplifier Profiles
         if parentdir in ("Amplifier Profiles"):
