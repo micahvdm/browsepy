@@ -271,6 +271,10 @@ class Node(object):
         # Plugin Resources
         if parentdir == "Aida DSP Models" and extension == "json":
             return "Aida DSP Model"
+        
+        # Plugin Resources
+        if parentdir == "Amplifier Models" and extension == "tapf":
+            return "Amplifier Model"
 
         # If this is reached, a file is placed in a directory not fit for it
         # We can still return a recognizable type, but add "Unlisted" suffix
