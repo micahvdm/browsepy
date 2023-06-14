@@ -275,6 +275,9 @@ class Node(object):
         # Plugin Resources
         if parentdir == "Amplifier Profiles" and extension == "tapf":
             return "AAmplifier Profile"
+        
+        if parentdir == "NAM Models" and extension == "nam":
+            return "NAM Model"
 
         # If this is reached, a file is placed in a directory not fit for it
         # We can still return a recognizable type, but add "Unlisted" suffix
