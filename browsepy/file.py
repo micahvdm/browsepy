@@ -279,6 +279,9 @@ class Node(object):
         if parentdir == "NAM Models" and extension == "nam":
             return "NAM Model"
 
+        if parentdir == "Captures" and extension == "wav":
+            return "Captures"
+
         # If this is reached, a file is placed in a directory not fit for it
         # We can still return a recognizable type, but add "Unlisted" suffix
         if extension in self.audiofile_exts:
